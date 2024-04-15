@@ -70,10 +70,20 @@ int main()
     int choice;
     int close;
     Image image;
- 
-    string imageName;
+    string imageName, ext;
     cout << "Please enter image name: ";
     cin >> imageName;
+    // Find the last occurrence of a period in imageName
+    size_t pos = imageName.rfind('.');
+    while (pos == string::npos || (ext = imageName.substr(pos), ext != ".jpg" && ext != ".bmp" && ext != ".png" && ext != ".tga")) {
+        if (pos == string::npos) {
+            cout << "No extension found. Please enter a valid image file name with extension (.jpg, .bmp, .png, .tga):\n";
+        } else {
+            cout << "Invalid extension. Please enter a valid image file name with extension (.jpg, .bmp, .png, .tga):\n";
+        }
+        cin >> imageName;
+        pos = imageName.rfind('.');
+    }
     image.loadNewImage(imageName);
     while (true)
     {
@@ -699,10 +709,21 @@ void purple( Image &image) {
 }
 void merge(Image& image)
 {
-    string imagename_2;
+    string imagename_2 , ext = "";
     cout << "Please enter the two colored image name to modify :\n ";
     cin >> imagename_2;
-
+    size_t pos = imagename_2.rfind('.');
+    
+    // Loop until a valid extension is provided
+    while (pos == string::npos || (ext = imagename_2.substr(pos), ext != ".jpg" && ext != ".bmp" && ext != ".png" && ext != ".tga")) {
+        if (pos == string::npos) {
+            cout << "No extension found. Please enter a valid image file name with extension (.jpg, .bmp, .png, .tga):\n";
+        } else {
+            cout << "Invalid extension. Please enter a valid image file name with extension (.jpg, .bmp, .png, .tga):\n";
+        }
+        cin >> imagename_2;
+        pos = imagename_2.rfind('.');
+    }
     Image image_2(imagename_2);
     long long image_1_size = image.height * image.width;
     long long image_2_size = image_2.height * image_2.width;
@@ -971,13 +992,33 @@ void sunlight(Image &image)
     cout << "Successfully modified.\n";
 }
  
-void save(Image &image) {
- 
+void save(Image &image) 
+{
+    bool found = false;
+    string fileName, ext = "";
     cout << "Please enter the image name to store the new image\n";
     cout << "and specify the extension (.jpg, .bmp, .png, .tga): ";
-    string fileName;
     cin >> fileName;
- 
+
+    size_t pos = fileName.find('.');
+    if (pos != string::npos) {
+        ext = fileName.substr(pos);
+    }
+
+    while (ext != ".jpg" && ext != ".bmp" && ext != ".png" && ext != ".tga") {
+        cout << "Invalid extension. Please enter a valid image file name with extension (.jpg, .bmp, .png, .tga):\n";
+        cin >> fileName;
+        pos = fileName.find('.');
+        if (pos != string::npos)
+        {
+            ext = fileName.substr(pos);
+        } 
+        else
+        {
+            ext = ""; // Reset ext if no period is found
+        }
+    }
+    
     image.saveImage(fileName);
 }
 
