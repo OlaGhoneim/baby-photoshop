@@ -75,13 +75,12 @@ int main()
     cout << "Please enter image name: ";
     cin >> imageName;
     image.loadNewImage(imageName);
-
     while (true)
     {
         cout << "Welcome to Image processing  programs" << endl;
         cout << "Please select an option" << endl;
         cout << "1 >load image" << endl;
-        cout << "2  > save image" << endl;
+        cout <<"2  > save image" << endl;
         cout << "3 > Grey scale filter" << endl;
         cout << "4 > Black and white " << endl;
         cout << "5 > Invert image " << endl;
@@ -99,7 +98,6 @@ int main()
         cout << "17 > Resize image " << endl;
         cout << "18 > Infrared " << endl;
         cout << "0 > End" << endl;
-        
         while (!validInput)
         {
             try
@@ -168,16 +166,13 @@ int main()
         {
             rotate( image);
         }
-        else if (choice == 9) 
-        {
+        else if (choice == 9) {
             boarder( image);
         }
-        else if (choice == 10) 
-        {
+        else if (choice == 10) {
             blur(image);
         }
-        else if (choice == 11) 
-        {
+        else if (choice == 11) {
             purple( image);
         }
         else if (choice == 12)
@@ -250,6 +245,9 @@ int main()
         }
     }
  
+ 
+ 
+ 
     return 0;
 }
  
@@ -275,13 +273,17 @@ void Grayscale_Conversion(Image &image)
                 image(i, j, x) = avg;
  
             }
+ 
+ 
         }
     }
+    cout << "Successfully modified.\n";
  
 }
  
 void invertImage(Image &image)
 {
+ 
  
     for (int i = 0; i < image.width; ++i)
     {
@@ -311,6 +313,8 @@ void invertImage(Image &image)
         }
     }
  
+ 
+ 
 }
  
 void rotate_90(Image &image)
@@ -329,12 +333,14 @@ void rotate_90(Image &image)
         }
     }
  
-    image = image2;
+    image=image2;
+ 
  
 }
  
 void rotate_180(Image &image)
 {
+ 
  
     for (int i = 0; i < image.width / 2; ++i)
     {
@@ -348,6 +354,8 @@ void rotate_180(Image &image)
             }
         }
     }
+ 
+ 
  
 }
  
@@ -367,7 +375,8 @@ void rotate_270(Image &image)
         }
     }
  
-    image = image2;
+ 
+image=image2;
 }
  
 void rotate(Image &image)
@@ -414,9 +423,9 @@ void rotate(Image &image)
  
 }
  
-void Black_white(Image &image) 
-{
-  
+void Black_white(Image &image) {
+ 
+ 
     unsigned int avg = 0;
     for (int i = 0; i < image.width; i++) {
         for (int j = 0; j < image.height; j++) {
@@ -434,13 +443,15 @@ void Black_white(Image &image)
                     image(i, j, k) = 0;
  
             }
+ 
+ 
         }
     }
  
 }
  
-void flipH(Image &image) 
-{
+void flipH(Image &image) {
+ 
  
     int l = image.width - 1;
     for (int i = 0; i < image.width / 2; i++, l--) {
@@ -449,7 +460,8 @@ void flipH(Image &image)
                 std::swap(image(i, j, k), image(l, j, k));
             }
         }
-    } 
+    }
+ 
 }
  
 void flipv(Image &image) {
@@ -466,7 +478,6 @@ void flipv(Image &image) {
     }
  
 }
-
 int boarder_colour(){
     int colour;
     bool validInput = false;
@@ -475,7 +486,9 @@ int boarder_colour(){
     cout << "1 > white" << endl;
     cout << "2 > black" << endl;
     cout << "3 > blue" << endl;
-  
+ 
+ 
+ 
     while (!validInput)
     {
         try
@@ -680,54 +693,58 @@ void purple( Image &image) {
         }
     }
  
+ 
+ 
+ 
 }
-void merge(Image &image)
+void merge(Image& image)
 {
     string imagename_2;
     cout << "Please enter the two colored image name to modify :\n ";
     cin >> imagename_2;
-    Image image_2;
-    Image new_image;
-    image_2.loadNewImage(imagename_2);
-    long long image_size = image.height * image.width;
+
+    Image image_2(imagename_2);
+    long long image_1_size = image.height * image.width;
     long long image_2_size = image_2.height * image_2.width;
-    if (image_size == image_2_size)
+    if (image_1_size == image_2_size)
     {
         Image new_image(image.width, image.height);
-        for (int i = 0; i < new_image.width ; i++)
+        for (int i = 0; i < new_image.width; i++)
         {
             for (int j = 0; j < new_image.height; j++)
             {
                 for (int k = 0; k < new_image.channels; k++)
                 {
-                    new_image(i , j , k) = (image(i , j , k) + image_2(i , j , k)) / 2;
-                    if ( new_image(i , j , k) > 255)
+                    new_image(i, j, k) = (image(i, j, k) + image_2(i, j, k)) / 2;
+                    if (new_image(i, j, k) > 255)
                     {
-                        new_image(i , j , k) = 255 ;
+                        new_image(i, j, k) = 255;
                     }
                 }
- 
+
             }
- 
- 
+
+
         }
- 
- 
+        cout << "Successfully modified.\n";
+        image = new_image;
+
+
     }
-    else if (image_size != image_2_size)
+    else if (image_1_size != image_2_size)
     {
         cout << "the sizes of two photo are not equal \n";
         cout << "1 : resize the smaller image or both to the biggest height and the biggest width and then merge \n";
         cout << "2 : merge the common area of the smaller width and the smaller height \n";
         string choice;
- 
+
         while (true)
         {
             cin >> choice;
             if (choice == "1")
             {
-                double x_ratio = double(image_2.width)/image.width ;
-                double y_ratio = double(image_2.height)/image.height;
+                double x_ratio = double(image_2.width) / image.width;
+                double y_ratio = double(image_2.height) / image.height;
                 Image resizedImage(image.width, image.height);
                 for (int o = 0; o < image.width; o++)
                 {
@@ -735,58 +752,60 @@ void merge(Image &image)
                     {
                         for (int q = 0; q < 3; q++)
                         {
-                            resizedImage(o, p, q) = image_2(round(o * x_ratio), round(p * y_ratio) , q);
+                            resizedImage(o, p, q) = image_2(round(o * x_ratio), round(p * y_ratio), q);
                         }
                     }
                 }
                 Image new_image(image.width, image.height);
-                for (int i = 0; i < new_image.width ; i++)
+                for (int i = 0; i < new_image.width; i++)
                 {
                     for (int j = 0; j < new_image.height; j++)
                     {
                         for (int k = 0; k < new_image.channels; k++)
                         {
-                            new_image(i , j , k) = (image(i , j , k) + resizedImage(i , j , k)) / 2;
-                            if ( new_image(i , j , k) > 255)
+                            new_image(i, j, k) = (image(i, j, k) + resizedImage(i, j, k)) / 2;
+                            if (new_image(i, j, k) > 255)
                             {
-                                new_image(i , j , k) = 255 ;
+                                new_image(i, j, k) = 255;
                             }
                         }
                     }
                 }
- 
- 
+                cout << "Successfully modified.\n";
+                image = new_image;
+
+
                 break;
- 
+
             }
-            else if(choice == "2")
+            else if (choice == "2")
             {
-                int x = min (image.width , image_2.width);
-                int y = min (image.height , image_2.height);
- 
-                Image cropedImage(x , y);
-                for (int o = 0; o < x ; o++) {
-                    for (int p = 0; p < y ; p++)
+                int x = min(image.width, image_2.width);
+                int y = min(image.height, image_2.height);
+
+                Image cropedImage(x, y);
+                for (int o = 0; o < x; o++) {
+                    for (int p = 0; p < y; p++)
                     {
                         for (int q = 0; q < 3; q++)
                         {
                             if (x == image.width)
                             {
-                                cropedImage(o, p, q) = image(o , p , q);
+                                cropedImage(o, p, q) = image(o, p, q);
                             }
                             else
                             {
-                                cropedImage(o, p, q) = image_2(o , p , q);
+                                cropedImage(o, p, q) = image_2(o, p, q);
                             }
                         }
                     }
- 
+
                 }
- 
-                Image new_image(min (image.width , image_2.width), min (image.height , image_2.height));
+
+                Image new_image(min(image.width, image_2.width), min(image.height, image_2.height));
                 for (int i = 0; i < new_image.width; i++) {
                     for (int j = 0; j < new_image.height; j++) {
-                        for (int k = 0; k < 3 ; k++) {
+                        for (int k = 0; k < 3; k++) {
                             if (x == image.width)
                             {
                                 new_image(i, j, k) = (cropedImage(i, j, k) + image_2(i, j, k)) / 2;
@@ -801,21 +820,23 @@ void merge(Image &image)
                         }
                     }
                 }
- 
- 
+
+                cout << "Successfully modified.\n";
+                image = new_image;
+
                 break;
- 
+
             }
             else
             {
-                cout <<"invalid input , please choose 1 or 2 : ";
+                cout << "invalid input , please choose 1 or 2 : ";
             }
         }
- 
- 
+
+
     }
- 
-    image = new_image ;
+
+
 }
 void lighting (Image &image) {
  
@@ -829,6 +850,7 @@ void lighting (Image &image) {
             }
         }
     }
+    cout << "Successfully modified.\n";
  
 }
 void darkening (Image &image)
@@ -846,12 +868,13 @@ void darkening (Image &image)
  
         }
     }
+    cout << "Successfully modified.\n";
+ 
  
 }
-
-void sobelEdgeDetection(Image &image) {
- 
-    //convert image to grayscale
+void sobelEdgeDetection(Image& image) {
+    Image edge_Image(image.width, image.height);
+    //convert image to grayscale 
     for (int i = 0; i < image.width; ++i)
     {
         for (int j = 0; j < image.height; ++j)
@@ -860,24 +883,24 @@ void sobelEdgeDetection(Image &image) {
             // Calculating the average of pixel values
             for (int k = 0; k < image.channels; ++k)
             {
-                avg += image(i, j, k) ;
- 
+                avg += image(i, j, k);
+
             }
- 
+
             avg /= 3;
             for (int x = 0; x < image.channels; ++x)
             {
                 image(i, j, x) = avg;
- 
+
             }
- 
+
+
         }
     }
- 
- 
-    // Create a new image for edge detection
-    Image edge_Image(image.width, image.height);
- 
+
+
+
+
     // Loop through pixels in the image
     for (int i = 1; i < image.width - 1; ++i) {
         for (int j = 1; j < image.height - 1; ++j) {
@@ -889,37 +912,39 @@ void sobelEdgeDetection(Image &image) {
                     grad_X += image(i + k, j + l, 0) * sobel_horizontal[k + 1][l + 1];
                 }
             }
- 
+
             // Apply Sobel vertical kernel
             for (int k = -1; k <= 1; ++k) {
                 for (int l = -1; l <= 1; ++l) {
                     grad_Y += image(i + k, j + l, 0) * sobel_vertical[k + 1][l + 1];
                 }
             }
- 
+
+
             // Combine gradients to get edge magnitude
             int edge_magnitude = abs(grad_X) + abs(grad_Y);
- 
+
             // Set white color for edges
             for (int k = 0; k < image.channels; ++k) {
-                if (edge_magnitude > 200 )
+                if (edge_magnitude > 200)
                 {
-                    edge_Image(i , j , k) = 0;
+                    edge_Image(i, j, k) = 0;
                 }
                 else
                 {
                     edge_Image(i, j, k) = 255;
- 
+
                 }
- 
+
             }
         }
     }
-    image = edge_Image ;
- 
- 
-}
+    cout << "Successfully modified.\n";
+    image = edge_Image;
 
+
+
+}
 void sunlight(Image &image)
 {
  
@@ -940,8 +965,10 @@ void sunlight(Image &image)
             image(i , j , 2) = max(z , 0.0) ;
  
         }
-    }
  
+ 
+    }
+    cout << "Successfully modified.\n";
 }
  
 void save(Image &image) {
@@ -976,7 +1003,6 @@ void crop(Image& image)
 
     image = cropedImage;
 }
-
 void resize(Image& image)
 {
     double W, H;
@@ -1003,7 +1029,6 @@ void resize(Image& image)
 
     image = resizedImage;
 }
-
 void infrared(Image& image)
 {
 
