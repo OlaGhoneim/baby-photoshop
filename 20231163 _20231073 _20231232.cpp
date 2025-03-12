@@ -1,24 +1,24 @@
 // ==========================================================================================================
 // Purpose: The program is dedicated to image processing Demo , and contains 5 types of filters programs
 // ==========================================================================================================
-// Author1: Mariem Refaey Abd El-Manaf Ahmed __ ID: 20231163
+// Author1: Mariem Refaey Abd El-Manaf Ahmed
 // Filter 3: Invert Image __ Filter 6: Rotate Image
 // Filter 8: Crop Image __ Filter 11: Resize Image
 // Bonus filter 17: Infrared 
-// Email: refaeymariem@gmail.com __ Section 26
+// Email: refaeymariem@gmail.com
 // ==========================================================================================================
-// Author2: Salma Ashraf Hassan Mostafa __ ID:20231073
+// Author2: Salma Ashraf Hassan Mostafa
 // Filter 1: Grayscale Conversion
 // Filter 4: Merge Images
 // Filter 7: Darken and lighten image
 // Filter 10: detect image edges
 // Bonus filter 13 : land of wano (sunlight)
-// Email: salmaashrafdiab11@gmail.com  __ Section 26
+// Email: salmaashrafdiab11@gmail.com 
 // ==========================================================================================================
-// Author3: Ola Ghoneim Hammad Ahmed Salama __ ID: 20231232
+// Author3: Ola Ghoneim Hammad Ahmed Salama 
 // Filter 2: Black and White __ Filter 5:Flip Image
 // Filter 9:make boarder __ Filter 12:blurring __ Filter(bonus):purple
-// Email: olaghoneim38@gmail.com __ Section 26
+// Email: olaghoneim38@gmail.com 
 // ==========================================================================================================
  
 #include <iostream>
